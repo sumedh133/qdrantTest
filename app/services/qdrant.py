@@ -12,5 +12,5 @@ endpoint = os.getenv("QDRANT_ENDPOINT")
 # Initialize Qdrant client
 qdrant_client = QdrantClient(
     host=endpoint,
-    api_key=api_key,  # or directly "<your-api-key>"
+    api_key=api_key, 
 )
