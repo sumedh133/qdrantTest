@@ -16,4 +16,6 @@ if not url:
 qdrant_client = QdrantClient(url=url, api_key=api_key)
 
 print("✅ Qdrant client initialized successfully!")
-__all__ = ["qdrant_client"]
+from .main import add_property_to_qdrant
+
+__all__ = ["qdrant_client", "add_property_to_qdrant"]
