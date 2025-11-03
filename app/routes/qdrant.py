@@ -20,43 +20,43 @@ class PropertyPoint(BaseModel):
 def update_all_properties_from_json():
     import hashlib
 
-    print("Processing", len(properties), "properties from JSON")
-    properties_data = properties
-    vectorizer = PropertyVectorizer()
+    properties_data = properties[-50:]
+    print("Processing", len(properties_data), "properties from JSON")
     
+    # ✅ 1. Vectorize ALL properties TOGETHER (this is the crucial fix)
+    vectorizer = PropertyVectorizer()
+    vectors = vectorizer.fit_transform(properties_data)
+
     success_count = 0
     error_count = 0
-    
-    for prop in properties_data:
+
+    # ✅ 2. Loop and insert using the precomputed vectors
+    for i, prop in enumerate(properties_data):
         try:
-            vectors = vectorizer.fit_transform([prop])
-            vector_list = vectors[0].tolist()
-            
-            # Convert string ID to integer hash
+            vector_list = vectors[i].tolist()
+
+            # ✅ Convert string ID to integer hash
             prop_id = prop.get("id")
-            
             if isinstance(prop_id, str):
-                # Create a consistent integer from string ID
                 hash_obj = hashlib.md5(prop_id.encode())
-                prop_id = int(hash_obj.hexdigest()[:8], 16)  # Use first 8 hex chars as int
+                prop_id = int(hash_obj.hexdigest()[:8], 16)
             elif not isinstance(prop_id, int):
-                # Use hash of entire property if no ID
                 hash_obj = hashlib.md5(str(prop).encode())
                 prop_id = int(hash_obj.hexdigest()[:8], 16)
-            
+
             add_property_to_qdrant(
                 id=prop_id,
                 vector=vector_list,
                 payload=prop,
-                collection="properties_index",
+                collection="properties_index2",
             )
             success_count += 1
-            
+
         except Exception as e:
             print(f"Error processing property {prop.get('id')}: {str(e)}")
             error_count += 1
             continue
-    
+
     return {
         "message": "Property update completed",
         "success": success_count,
