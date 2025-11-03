@@ -1,0 +1,28 @@
+{
+  "id": 1,
+  "property": {
+    "id": "RNA2424",
+    "propertyType": "residential",
+    "source": "CRM",
+    "rentalInfo": { "rent": 45000, "deposit": 200000, "maintenanceAmount": null },
+    "assetType": "apartment",
+    "noOfBalconies": 2,
+    "noOfBedrooms": 3,
+    "noOfBathrooms": 3,
+    "communityType": "gated",
+    "facing": "north",
+    "sbua": 1971,
+    "floorNumber": 16,
+    "apartmentType": "simplex",
+    "_geoloc": { "lat": 13.0147942, "lng": 77.76050099999999 },
+    "stage": "live",
+    "zone": "East",
+    "listingType": "rental",
+    "furnishing": "semi-furnished",
+    "readyToMove": true,
+    "status": "available",
+    "ageOfTheBuilding": "1-5 years",
+    "referredFloorNumber": "Higher Floor (10+)"
+  },
+  "collection": "properties_index"
+}
