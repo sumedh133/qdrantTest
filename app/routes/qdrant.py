@@ -48,7 +48,7 @@ def update_all_properties_from_json():
                 id=prop_id,
                 vector=vector_list,
                 payload=prop,
-                collection="properties_index2",
+                collection="properties_index3",
             )
             success_count += 1
 
